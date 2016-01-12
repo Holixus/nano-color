@@ -2,9 +2,7 @@
   "name": "nano-color",
   "version": "1.0.0",
   "description": "",
-    "keywords" : [
-        "HSV", "RGB", "RGBA", "hsv-filter", "coloring-filter", "gradient"
-    ],
+  "keywords" : [ "HSV", "RGB", "RGBA", "hsv-filter", "coloring-filter", "gradient" ],
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec -u tdd",
