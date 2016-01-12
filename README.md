@@ -104,9 +104,14 @@ where, keys of object should be numeric value in bounds between 0 and 10000, tha
 Example:
 ```
 > var c = require('nano-color');
-c.gradient(0, 10, { 0: '#000', 4000: '#1234', 6000: 0x33445566, 10000: [ 255, 255, 255, 255 ] }, function (pos, RGBA) {
-	console.log(RGBA);
-});
+c.gradient(0, 10, {
+		0: '#000',
+		4000: '#1234',
+		6000: 0x33445566,
+		10000: [ 255, 255, 255, 255 ]
+	}, function (pos, RGBA) {
+		console.log(RGBA);
+	});
 ```
 will produce console output:
 ```
