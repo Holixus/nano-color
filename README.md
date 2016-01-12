@@ -12,18 +12,18 @@ hsv &lt;-> rgb colors conversion utility library. HSV filter, coloring filter, g
 
 ## Functions
 
-### Common prarameter names
+### Common parameter names
 
-* R,G,B,A -- 0..255
-* h,hue -- 0..359
-* s,v,a -- 0..1.
-* g -- gamma
-* RGB -- [ R, G, B ]
-* RGBA -- [ R, G, B, A ]
-* IRGBA -- 0xRRGGBBAA
-* IRGB -- 0xRRGGBB
-* data -- array of bytes
-* addr -- offset in an array of bytes
+* R,G,B,A -- integer channel value (0..255);
+* h -- hue value (0..359);
+* s,v,a -- saturation, volume, alpha value (0..1);
+* g -- gamma value;
+* RGB -- [ R, G, B ];
+* RGBA -- [ R, G, B, A ];
+* IRGBA -- 0xRRGGBBAA;
+* IRGB -- 0xRRGGBB;
+* data -- array of bytes;
+* addr -- offset in an array of bytes.
 
 ### setGamma(g)
 
