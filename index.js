@@ -6,15 +6,21 @@ var exports = module.exports;
 var hsv_angle_correction = false,
     hsv_gamma = 1.6;
 
+var c = 10000, inv = 10000,
+    hsv_lut = [],
+    rgb_lut = [];
+
 /* --- value to byte ------------------------------------------------------------------------------------ */
-var v2b/* = function _v2b(v) {
-	return Math.pow(v, 1/hsv_gamma) * 255 + .5 | 0;
-}*/;
+// Math.pow(v, 1/hsv_gamma) * 255 + .5 | 0;
+var v2b = function _v2b(v) {
+	return hsv_lut[(v*c+.5)>>0];
+};
 
 /* --- byte to value ------------------------------------------------------------------------------------ */
-var b2v/* = function _b2v(v) {
-	return Math.pow(v/255, hsv_gamma);
-}*/;
+// Math.pow(v/255, hsv_gamma);
+var b2v = function _b2v(v) {
+	return rgb_lut[v/255*inv+.5|0];
+};
 
 /* --------------------------------------------------------------------------------------- */
 exports.setGamma = function setGamma(g) {
@@ -24,23 +30,11 @@ exports.setGamma = function setGamma(g) {
 
 	hsv_gamma = gamma;
 
-	var c = 30000, inv = 30000,
-	    hsv_lut = [],
-	    rgb_lut = [];
-
 	for (var i = 0; i <= c; ++i)
 		hsv_lut[i] = Math.pow(i/c, gamma) * 255 + .5 | 0;
 
 	for (var i = 0; i <= inv; ++i)
 		rgb_lut[i] = Math.pow(i/inv, g);
-
-	v2b = function (v) {
-		return hsv_lut[(v*c+.5)>>0];
-	}
-
-	b2v = function (v) {
-		return rgb_lut[v/255*inv+.5|0];
-	}
 };
 
 exports.setGamma(1.6);
