@@ -12,6 +12,7 @@
   "dependencies": {
   },
   "devDependencies": {
+    "core-assert": "0",
     "mocha": "2",
     "colors": "0",
     "istanbul": "0"

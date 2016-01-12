@@ -1,5 +1,5 @@
 var c = require('../index.js'),
-    assert = require('assert');
+    assert = require('core-assert');
 
 var timer = function (ms, v) {
 	return new Promise(function (resolve, reject) {
