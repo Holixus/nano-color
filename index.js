@@ -282,6 +282,24 @@ exports.gradient = function gradient(pos_a, pos_b, gr, callback) {
 		return [ dy/dx, y1 - x1*dy/dx ];
 	}
 
+	function color(x) {
+		return [
+			line[0][0]*ix + line[0][1] +.5 | 0,
+			line[1][0]*ix + line[1][1] +.5 | 0,
+			line[2][0]*ix + line[2][1] +.5 | 0,
+			line[3][0]*ix + line[3][1] +.5 | 0
+		];
+	}
+	function mix(f, c1, c2) {
+		var nf = 1.-f;
+		return [ 
+			c1[0]*f + c2[0]*nf +.5 | 0,
+			c1[1]*f + c2[1]*nf +.5 | 0,
+			c1[2]*f + c2[2]*nf +.5 | 0,
+			c1[3]*f + c2[3]*nf +.5 | 0
+		];
+	};
+
 	var w = pos_b - pos_a, i = 0, x1, c1, x2, c2, c = [], line = [];
 	for (var p in gr) {
 		x2 = pos_a + w*p/10000;
@@ -293,23 +311,6 @@ exports.gradient = function gradient(pos_a, pos_b, gr, callback) {
 			line[2] = getLineAB(x1, c1[2], dx, c2[2] - c1[2]);
 			line[3] = getLineAB(x1, c1[3], dx, c2[3] - c1[3]);
 
-			function color(x) {
-				return [
-					line[0][0]*ix + line[0][1] +.5 | 0,
-					line[1][0]*ix + line[1][1] +.5 | 0,
-					line[2][0]*ix + line[2][1] +.5 | 0,
-					line[3][0]*ix + line[3][1] +.5 | 0
-				];
-			}
-			function mix(f, c1, c2) {
-				var nf = 1.-f;
-				return [ 
-					c1[0]*f + c2[0]*nf +.5 | 0,
-					c1[1]*f + c2[1]*nf +.5 | 0,
-					c1[2]*f + c2[2]*nf +.5 | 0,
-					c1[3]*f + c2[3]*nf +.5 | 0
-				];
-			};
 			for (var ix = (x1+.9999)|0, ie = x2|0; ix < ie; ++ix)
 				callback.call(this, ix, color(ix));
 			callback.call(this, ie, ie < pos_b ? mix(x2-ie, color(ie), c2) : c2);
