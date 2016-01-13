@@ -54,11 +54,11 @@ Returns [ R, G, B ]. Eats '#RGB', '#RGBA', '#RRGGBB' and '#RRGGBBAA' formats.
 
 Returns [ R, G, B, A ]. Eats '#RGB', '#RGBA', '#RRGGBB' and '#RRGGBBAA' formats.
 
-### rgb2array(IRGB)
+### irgb2array(IRGB)
 
 Returns [ R, G, B ].
 
-### rgba2array(IRGBA)
+### irgba2array(IRGBA)
 
 Returns [ R, G, B, A ].
 
@@ -116,7 +116,7 @@ will produce console output:
 3: [ 13, 26, 38, 115 ]
 4: [ 17, 34, 51, 68 ]
 5: [ 31, 48, 65, 82 ]
-6: [ 22, 41, 96, 80 ]
+6: [ 48, 65, 82, 99 ]
 7: [ 80, 95, 74, 124 ]
 8: [ 138, 148, 52, 168 ]
 9: [ 197, 202, 29, 211 ]

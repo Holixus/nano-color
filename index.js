@@ -130,21 +130,21 @@ exports.rgba2hsva = function rgba2hsva(R,G,B,A) {
 	return hsv;
 };
 
-function _h(c) {
-	//(c+100).toString(16).substr(-2);
-	return "0123456789abcdef".charAt(c>>4) + "0123456789abcdef".charAt(c&15);
+function _h(v) {
+	var c = v + .5 & 255, s = "0123456789abcdef";
+	return s.charAt(c>>4) + s.charAt(c&15);
 }
 
 /* --------------------------------------------------------------------------------------- */
 // ([r,g,b]) return "#RRGGBB";
 exports.rgb2hex = function rgb2hex(rgb) {
-	return '#' + _h(rgb[0]+.5|0) + _h(rgb[1]+.5|0) + _h(rgb[2]+.5|0);
+	return '#' + _h(rgb[0]) + _h(rgb[1]) + _h(rgb[2]);
 };
 
 /* --------------------------------------------------------------------------------------- */
 // ([r,g,b,a]) return "#RRGGBBAA";
 exports.rgba2hex = function rgba2hex(rgb) {
-	return '#' + _h(rgb[0]+.5|0) + _h(rgb[1]+.5|0) + _h(rgb[2]+.5|0) + _h(rgb[3]+.5|0);
+	return '#' + _h(rgb[0]) + _h(rgb[1]) + _h(rgb[2]) + _h(rgb[3]);
 };
 
 /* --------------------------------------------------------------------------------------- */
@@ -183,21 +183,21 @@ var hex2rgba = exports.hex2rgba = function hex2rgba(hex) {
 
 /* --------------------------------------------------------------------------------------- */
 // (0xRRGGBB) return [ R, G, B ];
-exports.rgb2array = function rgb2array(value) {
+exports.irgb2array = function irgb2array(value) {
 	return [ value >> 16, (value >> 8) & 255, value & 255 ];
 };
 
 /* --------------------------------------------------------------------------------------- */
 // (0xRRGGBBAA) return [ R, G, B, A ];
-var rgba2array = exports.rgba2array = function rgba2array(value) {
+var rgba2array = exports.irgba2array = function irgba2array(value) {
 	return [ (value >> 24)&255, (value >> 16) & 255, (value >> 8) & 255, value & 255 ];
 };
 
 /* --------------------------------------------------------------------------------------- */
-// (H, S, V, A) return 0xRRGGBBAA;
-exports.hsva2irgba = function hsva2irgba(H,S,V, A) {
-	var rgba = hsva2rgba(H,S,V,A);
-	return 16777216. * ((rgba[0]+.5)|0) + 65536. * ((rgba[1]+.5)|0) + 256. * ((rgba[2]+.5)|0) + rgba[3];
+// (h, s, v, a) return 0xRRGGBBAA;
+exports.hsva2irgba = function hsva2irgba(h,s,v,a) {
+	var rgba = hsva2rgba(h,s,v,a);
+	return 16777216. * rgba[0] + 65536. * rgba[1] + 256. * rgba[2] + rgba[3];
 };
 
 /* --------------------------------------------------------------------------------------- */

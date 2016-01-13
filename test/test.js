@@ -12,21 +12,6 @@ var timer = function (ms, v) {
 	});
 };
 
-/*
-	setGamma: setGamma,     // (g)
-	rgb2hsv: rgb2hsv,       // (R,G,B) returns [ h,s,v ];
-	hsv2rgb: hsv2rgb,       // (H,S,V) return [ r, g, b ];
-	hsva2rgba: hsva2rgba,   // (H,S,V,A) return [ r, g, b, a ];
-	hsva2irgba: hsva2irgba, // (H, S, V, A) return 0xRRGGBBAA;
-	rgb2hex: rgb2hex,       // (rgb as [r,g,b]) return "#rrggbb";
-	hex2rgb: hex2rgb,       // (hex) return [ r, g, b ];
-	rgb2array: rgb2array,   // (value) return [ r, g, b ];
-	rgba2array: rgba2array, // (value) return [ r, g, b, a ];
-	hsv_filter: hsv_filter, // (rgb, hue, sat, val)
-	colorify_filter: colorify_filter, // (rgb, hue, sat, val)
-	genGradient: genGradient  // (pos_a, pos_b, gr as object, callback([this, ] pos, color as [r,g,b]))
-*/
-
 function round_a(v) {
 	return ((v*10000+.5)|0)/10000;
 }
@@ -327,14 +312,14 @@ suite('nano-color gamma = 1', function () {
 			[ 300,1,0.502, 1      ], 0x800080ff
 		], 10, 16);
 
-	massive('rgb2array', c.rgb2array, [
+	massive('irgb2array', c.irgb2array, [
 			0x000000, [ 0, 0, 0 ],
 			0x010203, [ 1, 2, 3 ],
 			0xFFFFFF, [ 255, 255, 255 ],
 			0xF0F0F0, [ 240, 240, 240 ]
 		], 16, 10);
 
-	massive('rgba2array', c.rgba2array, [
+	massive('irgba2array', c.irgba2array, [
 			0x00000000, [ 0, 0, 0, 0 ],
 			0x01020304, [ 1, 2, 3, 4 ],
 			0xFFFFFFFF, [ 255, 255, 255, 255 ],
