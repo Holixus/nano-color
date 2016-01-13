@@ -1,6 +1,6 @@
 {
   "name": "nano-color",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "HSV &lt;-> RGB colors conversion utility library. HSV filter, coloring filter, gradients generating.",
   "keywords" : [ "HSV", "RGB", "RGBA", "hsv-filter", "coloring-filter", "gradient" ],
   "main": "index.js",
