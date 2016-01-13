@@ -254,23 +254,26 @@ exports.colorify_filter = function colorify_filter(data, addr, hue, sat, val) {
 };
 
 /* --------------------------------------------------------------------------------------- */
-// (pos_a, pos_b, gr/*object*/, callback(/*this, */ pos, color/*[r,g,b]*/))
-exports.gradient = function gradient(pos_a, pos_b, gr, callback) {
+// (pos_a, pos_b, colors/*object*/, callback(/*this, */ pos, color/*[r,g,b]*/))
+exports.gradient = function gradient(pos_a, pos_b, colors, callback) {
 
-	function obj2rgba(some) {
-		switch (typeof some) {
+	function obj2rgba(color) {
+		switch (typeof color) {
 		case 'string':
-			return hex2rgba(some);
+			return hex2rgba(color);
 		case 'number':
-			return rgba2array(some);
+			return rgba2array(color);
 		case 'object':
-			if (some instanceof Array) {
-				if (some.length < 4)
-					return [ some[0], some[1], some[2], 255 ];
-			} else
-				throw TypeError('wrong color type');
+			if (color instanceof Array) {
+				switch (color.length) {
+				case 4:
+					return color;
+				case 3:
+					return [ color[0], color[1], color[2], 255 ];
+				}
+			}
 		}
-		return some;
+		throw TypeError('wrong color type');
 	}
 	function getLineAB(x1, y1, dx, dy) {
 		return [ dy/dx, y1 - x1*dy/dx ];
@@ -294,10 +297,12 @@ exports.gradient = function gradient(pos_a, pos_b, gr, callback) {
 		];
 	};
 
-	var w = pos_b - pos_a, i = 0, x1, c1, x2, c2, c = [], line = [];
-	for (var p in gr) {
-		x2 = pos_a + w*p/10000;
-		c2 = obj2rgba(gr[p]);
+	var w = pos_b - pos_a, i = 0,
+	    x1, c1, x2, c2, line = [ 0, 0, 0, 0 ];
+
+	for (var stop in colors) {
+		x2 = pos_a + w*stop/10000;
+		c2 = obj2rgba(colors[stop]);
 		if (i > 0) {
 			var dx = x2 - x1;
 			line[0] = getLineAB(x1, c1[0], dx, c2[0] - c1[0]);
@@ -305,9 +310,14 @@ exports.gradient = function gradient(pos_a, pos_b, gr, callback) {
 			line[2] = getLineAB(x1, c1[2], dx, c2[2] - c1[2]);
 			line[3] = getLineAB(x1, c1[3], dx, c2[3] - c1[3]);
 
-			for (var ix = (x1+.9999)|0, ie = x2|0; ix < ie; ++ix)
-				callback.call(this, ix, color(ix));
-			callback.call(this, ie, ie < pos_b ? mix(x2-ie, color(ie), c2) : c2);
+			for (var ix = (x1/*+.9999*/)|0, ie = x2|0; ix < ie; ++ix)
+				callback(ix, color(ix));
+
+			if (ie === pos_b)
+				callback(ie, c2);
+			else
+				if (ix !== ie)
+					callback(ie, mix(x2-ie, color(ie), c2));
 		}
 		x1 = x2;
 		c1 = c2;
