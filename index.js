@@ -297,11 +297,11 @@ exports.gradient = function gradient(pos_a, pos_b, colors, callback) {
 		];
 	};
 
-	var w = pos_b - pos_a, i = 0,
+	var len = pos_b - pos_a, i = 0,
 	    x1, c1, x2, c2, line = [ 0, 0, 0, 0 ];
 
 	for (var stop in colors) {
-		x2 = pos_a + w*stop/10000;
+		x2 = pos_a + len*stop/10000;
 		c2 = obj2rgba(colors[stop]);
 		if (i > 0) {
 			var dx = x2 - x1;
@@ -310,13 +310,13 @@ exports.gradient = function gradient(pos_a, pos_b, colors, callback) {
 			line[2] = getLineAB(x1, c1[2], dx, c2[2] - c1[2]);
 			line[3] = getLineAB(x1, c1[3], dx, c2[3] - c1[3]);
 
-			for (var ix = (x1/*+.9999*/)|0, ie = x2|0; ix < ie; ++ix)
+			for (var ix = x1+.5 | 0, ie = x2 | 0; ix < ie; ++ix)
 				callback(ix, color(ix));
 
 			if (ie === pos_b)
 				callback(ie, c2);
 			else
-				if (ix !== ie)
+				if (ix !== x2)
 					callback(ie, mix(x2-ie, color(ie), c2));
 		}
 		x1 = x2;
