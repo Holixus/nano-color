@@ -1,6 +1,6 @@
 {
   "name": "nano-color",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "HSV &lt;-> RGB colors conversion utility library. HSV filter, coloring filter, gradients generating.",
   "keywords" : [ "HSV", "RGB", "RGBA", "hsv-filter", "coloring-filter", "gradient" ],
   "main": "index.js",
@@ -18,5 +18,13 @@
     "istanbul": "0"
   },
   "author": "Vladimir Antonov <me@holix.ru>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Holixus/nano-color.git"
+  },
+  "homepage": "https://github.com/Holixus/nano-color",
+  "bugs": {
+    "url": "http://github.com/Holixus/nano-color/issues"
+  },
   "license": "MIT"
 }
