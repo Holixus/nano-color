@@ -129,7 +129,7 @@ will produce console output:
 10: [ 255, 255, 7, 255 ]
 ```
 
-[gitter-image]: https://badges.gitter.im/Holixus/nano-color.png
+[gitter-image]: https://badges.gitter.im/Holixus/nano-color.svg
 [gitter-url]: https://gitter.im/Holixus/nano-color
 [npm-image]: https://img.shields.io/npm/v/nano-color.svg
 [npm-url]: https://npmjs.org/package/nano-color
